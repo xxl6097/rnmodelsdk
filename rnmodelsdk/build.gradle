@@ -3,6 +3,17 @@ apply plugin: "com.android.library"
 apply plugin: "maven-publish"
 apply plugin: 'com.github.dcendents.android-maven'
 
+repositories {
+    mavenCentral()
+    google()
+    jcenter()
+    maven { url "https://jitpack.io" }
+    maven { url 'https://repo1.maven.org/maven2' }
+    maven { url 'https://maven.aliyun.com/repository/central'}
+    maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+}
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.3'
