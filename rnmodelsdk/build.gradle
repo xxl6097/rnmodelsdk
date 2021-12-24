@@ -1,19 +1,5 @@
 apply plugin: "com.android.library"
 
-apply plugin: "maven-publish"
-apply plugin: 'com.github.dcendents.android-maven'
-
-repositories {
-    mavenCentral()
-    google()
-    jcenter()
-    maven { url "https://jitpack.io" }
-    maven { url 'https://repo1.maven.org/maven2' }
-    maven { url 'https://maven.aliyun.com/repository/central'}
-    maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
-}
-
-
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.3'
@@ -46,5 +32,6 @@ dependencies {
 //    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
 //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 //    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-
 }
+
+apply from: '../maven.gradle'

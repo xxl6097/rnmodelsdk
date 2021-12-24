@@ -1,0 +1,66 @@
+// 添加插件
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'maven-publish'
+
+// 生成jar包的task
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+// 签名
+signing {
+    sign configurations.archives
+}
+
+group = GROUP_ID// groupId
+version = VERSION_NAME// 库的当前版本
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name ARTIFACT_ID// 项目名称
+                packaging 'aar'// 资源类型
+                artifactId ARTIFACT_ID// 库名
+                description 'OM System bridge Api'// 描述
+                url 'https://github.com/xxl6097/rnmodeldk'
+
+                scm {
+                    connection 'scm:git@github.com:xxl6097/rnmodeldk.git'
+                    developerConnection 'git@github.com:xxl6097/rnmodeldk.git'
+                    url 'https://github.com/xxl6097/rnmodeldk'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'uuxia'// 开发者账号
+                        name 'xiaxiaoli'// 名字
+                        email '263996097@qq.com'// 邮箱
+                    }
+                }
+            }
+        }
+    }
+}
